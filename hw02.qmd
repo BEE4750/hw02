@@ -9,6 +9,8 @@ format:
         error: true
         code-annotation: below
 engine: julia
+julia:
+    exeflags: ["+1.10.4"]
 format-links: []
 ---
 
