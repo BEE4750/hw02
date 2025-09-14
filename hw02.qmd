@@ -18,6 +18,8 @@ format:
 execute: 
     echo: true
 engine: julia
+julia:
+    exeflags: ["+1.11.5"]
 format-links: [pdf, ipynb]
 ---
 
@@ -72,68 +74,101 @@ using DataFrames
 using Roots
 ```
 
-## Problems (Total: 50/60 Points)
+## Problems (Total: 30 Points)
 
-::: {.cell .markdown}
+::: {.markdown .cell}
+### Problem 1 (5 points)
 
-### Problem 1 (25 points)
+Draw a systems diagram for the relationship between global mean temperature, atmospheric CO~2~ concentrations, and ocean CO~2~ concentrations. What are the signs of the interactions between these components and why? What does this suggest about the overall feedback between temperature and the ocean carbon cycle?
 
-A river which flows at 10 km/d is receiving discharges of wastewater contaminated with CRUD from two sources which are 15 km apart, as shown in the Figure below.  CRUD decays exponentially in the river at a rate of 0.36 $\mathrm{d}^{-1}$. 
 :::
 
-![Schematic of the river system in Problem 1](figures/river_diagram.png)
+::: {.callout-tip}
+Think about Henry's law for CO~2~.
+:::
 
-::: {.cell .markdown}
-**In this problem**:
+### Problem 2 (15 points)
 
-* Assuming steady-state conditions, derive a model for the concentration of CRUD downriver by solving the appropriate differential equation(s) analytically.
-* Determine if the system in compliance with a regulatory limit of 2.5 kg/(1000 m$^3$).
+A river which flows at 10 km/d is receiving discharges of wastewater contaminated with CRUD from two sources which are 15 km apart, as shown in the Figure below.  CRUD decays exponentially in the river at a rate of 0.36 $\mathrm{d}^{-1}$ and is deposited by the atmosphere along the river at a rate of 5.4 kg/km/d. 
+
+![Schematic of the river system in Problem 2](figures/river_diagram.png)
+
+::: {.markdown .cell}
+#### Problem 2.1
+
+Draw a systems diagram with the relevant control volume(s) denoted and any relevant in/out-flows between these boxes. How did you decide how many boxes were needed?
+
+:::
+
+::: {.markdown .cell}
+#### Problem 2.2
+
+Develop a model for the concentration of CRUD downriver by formulating and solving the appropriate differential equation(s) analytically.
+
 :::
 
 ::: {.callout-tip}
 Formulate your model in terms of distance downriver, rather than leaving it in terms of time from discharge.
 :::
 
-### Problem 2 (25 points)
+::: {.markdown .cell}
+#### Problem 2.3
 
-Consider the shallow lake model from class:
+Determine if the system in compliance with a regulatory limit of 2.5 kg/(1000 m$^3$). You can do this analytically or computationally.
+:::
+
+### Problem 3 (10 points)
+
+In class, we discussed the ice-albedo feedback and its possible influence on melting the hypothesized ["Snowball Earth"](https://en.wikipedia.org/wiki/Snowball_Earth). In this problem, we'll introduce a simple model of the Earth's energy balance with includes this feedback and examine the stability of the climate.
+
+This simple model of the energy balance (averaged over the entire planet) is:
 
 $$
-\begin{aligned}
-X_{t+1} &= X_t + a_t + y_t + \frac{X_t^q}{1 + X_t^q} - bX_t, \\
-y_t &\sim \text{LogNormal}(\mu, \sigma^2),
-\end{aligned}
-$$
+\underbrace{C\frac{dT}{dt}}_{\text{change in heat}} = \underbrace{\frac{(1-\alpha)S}{4}}_{\text{incoming radiation}} - \underbrace{(A - BT)}_{\text{outgoing radiation}} + \underbrace{a\ln \left(\frac{[CO_2]}{[CO_2]_{PI}}\right)}_{\text{greenhouse effect}},
+$$ {#eq-climate}
 
 where:
 
-* $X_t$ is the lake phosphorous (P) concentration at time $t$;
-* $a_t$ is the point-source P release at time $t$;
-* $y_t$ is the non-point-source P release at time $t$, which is treated as random from a LogNormal distribution with mean $\mu$ and standard deviation $\sigma$;
-* $b$ is the linear rate of P outflow;
-* $q$ is a parameter influencing the rate of P recycling from the sediment.
+- $T$ is the Earth's global mean temperature (in $^\circ\text{C}$);
+- $C$ is the heat capacity of the atmosphere and shallow ocean, taken to be $51\ \text{J}/\text{m}^2/^\circ\text{C}$;
+- $\alpha$ is the planetary albedo, or the fraction of incoming radiation reflected by the Earth, which has a present-day value of approximately 0.3;
+- $S$ is the solar constant, or the amount of solar radiation received by the Earth averaged over area, which has a present-day value of $1368\ \text{W}/\text{m}^2$ but during the Neoproteorozoic Era had a value of $1272\ \text{W}/\text{m}^2$ (this is divided by four because the Earth is a sphere but $S$ is the radiation captured by a disc with radius equal to that of the Earth);
+- $A$ and $B$ are coefficients from the linearization of outgoing radiation physics, which are determined by assuming that the pre-industrial temperature of $14^\circ\text{C}$ was stable without anthropogenic greenhouse gas emissions, and have corresponding values $B=1.3\ \text{W}/\text{m}^2/^\circ\text{C}$ and $$A=\frac{(1-\alpha)S}{4} + 14B.$$
 
+We will ignore the greenhouse effect term as we are considering the Earth system well before humans were around. 
 
-**In this problem**:
+::: {.markdown .cell}
+#### Problem 3.1
 
-* Make an initial conditions plot for the model dynamics for $b=0.5$, $q=1.5$, $y_t=0$, and $a_t=0$ for $t=0, \ldots, 30$. What are the equilibria? What can you say about the resilience of the system?
-  
-  ::: {.callout-tip}
-  ## Finding equilibria
-  
-  Use [`Roots.jl`](https://juliamath.github.io/Roots.jl/stable/) to find the equilibria by solving for values where $X_{t+1} = X_t$. For example, if you have functions `X_outflow(X,b)` and `X_recycling(X,q)`, you could create a function `X_delta(x, a) = a + X_recycling(x) - X_outflow(x)` and call `Roots.find_zero(x -> X_delta(x, a), x₀)`, where `x₀` is an initial value for the search (you might need to use your plot to find values for `x₀` near each of the "true" equilibria).
+Discretize the climate model (@eq-climate) using forward Euler integration and a time step of $\Delta t = 1$ yr.
+:::
 
-  :::
+::: {.markdown .cell}
+#### Problem 3.2
 
-* Repeat the analysis with $a_t=0.02$ for all $t$. What are the new equilibria? How have the dynamics and resilience of the system changed?
+Rather than assuming a constant value for the albedo $\alpha$, we will represent the ice-albedo feedback by letting $\alpha$ depend on $T$:
 
-::: {.cell .markdown}
-### Problem 3 (10 points)
+$$\alpha(T) = 
+    \begin{cases} 
+        \alpha_i & \quad \text{if } T \leq -10^\circ \text{C} \\
+        \alpha_i + (\alpha_0 - \alpha_i)(T+10 / 20) & \quad \text{if } -10^\circ \text{C} \leq T \leq 10^\circ \text{C} \\
+        \alpha_0 & \quad \text{if } T \geq 10^\circ \text{C}.
+    \end{cases}$$
 
-**This problem is only required for students in BEE 5750**.
+Let $\alpha_i = 0.5$ and $\alpha_0 = 0.3$. Plot $\alpha$ versus $T$ for values of $T$ between $-20^\circ\text{C}$ and $20^\circ\text{C}$.
 
-Consider the lake eutrophication example from [Lecture 04](https://viveks.me/environmental-systems-analysis/slides/lecture03-1-eutrophication-modeling.html#/title-slide). Suppose that phosphorous is also atmospherically deposited onto the lake surface at a rate of $1.6 \times 10^{-4} \mathrm{kg/(yr} \cdot \mathrm{m}^2)$, which is then instantly mixed into the lake. Derive a model for the lake phosphorous concentration and find the maximum allowable point source phosphorous loading if the goal is to keep lake concentrations below 0.02 mg/L.
+:::
 
+::: {.markdown .cell}
+#### Problem 3.2
+
+Simulate the simple climate model using the Neoprotereozoic value of $S$ with temperature-varying albedo for initial values of $T$ spanning $-60^\circ\text{C} \leq T_0 \leq 30^\circ\text{C}$ over a period of 200 years. Plot the temperature trajectories. How many equilibria are there and what are their stabilities?
+:::
+
+::: {.markdown .cell}
+#### Problem 3.3
+
+One might hypothesize that one cause for the transition from Snowball Earth (the stable frozen equilibrium from Problem 3.2) was an increasing amount of incoming solar radiation (as expressed by an increase in $S$). Examine this hypothesis using our simple model. Is this factor enough to cause the planet to warm to the pre-industrial temperature of $14^\circ\text{C}? 
 :::
 
 ::: {.cell .markdown}
