@@ -51,9 +51,9 @@ Otherwise, you can [find the Github repository here]({{< var github_org.repo >}}
 
 ### Instructions
 
-* Problem 1 asks you to derive a model for water quality in a river system and use this model to check for regulatory compliance.
-* Problem 2 asks you to explore the dynamics and equilibrium stability of the shallow lake model under a particular set of parameter values.
-* Problem 3 (5750 only) asks you to modify the lake eutrophication example from Lecture 04 to account for atmospheric deposition.
+* Problem 1 asks you to draw a systems diagram and identify the type of a feedback.
+* Problem 2 asks you to model contaminant concentrations in a river and use simulation to compare the concentrations to a regulatory standard.
+* Problem 3 asks you to explore the implications of an ice-albedo feedback in the Earth's climate system by understanding the equilibria of the modeled system and their stabilities.
 
 ### Load Environment
 
@@ -161,7 +161,7 @@ Let $\alpha_i = 0.5$ and $\alpha_0 = 0.3$. Simulate the simple climate model usi
 ::: {.markdown .cell}
 #### Problem 3.3
 
-One might hypothesize that one cause for the transition from Snowball Earth (the stable frozen equilibrium from Problem 3.2) was an increasing amount of incoming solar radiation (as expressed by an increase in $S$). Examine this hypothesis using our simple model. Is this factor enough to cause the planet to warm to the pre-industrial temperature of $14^\circ\text{C}? 
+One might hypothesize that one cause for the transition from Snowball Earth (the stable frozen equilibrium from Problem 3.2) was an increasing amount of incoming solar radiation (as expressed by an increase in $S$). Examine this hypothesis using our simple model. Is this factor enough to cause the planet to warm to the pre-industrial temperature of $14^\circ\text{C}$? 
 :::
 
 ::: {.cell .markdown}
