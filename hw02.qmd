@@ -32,7 +32,7 @@ format-links: [pdf, ipynb]
 ::: {.callout-important icon=false}
 ### Due Date
 
-Thursday, 09/19/24, 9:00pm
+Thursday, 09/25/25, 9:00pm
 :::
 
 ::: {.content-visible when-format="html"}
