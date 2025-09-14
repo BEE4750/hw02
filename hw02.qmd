@@ -89,7 +89,7 @@ Think about Henry's law for CO~2~.
 
 ### Problem 2 (15 points)
 
-A river which flows at 10 km/d is receiving discharges of wastewater contaminated with CRUD from two sources which are 15 km apart, as shown in the Figure below.  CRUD decays exponentially in the river at a rate of 0.36 $\mathrm{d}^{-1}$ and is deposited by the atmosphere along the river at a rate of 5.4 kg/km/d. 
+A river which flows at 10 km/d is receiving discharges of wastewater contaminated with CRUD from two sources which are 15 km apart, as shown in the Figure below.  CRUD decays exponentially in the river at a rate of 0.36 $\mathrm{d}^{-1}$ and is deposited by the atmosphere along the river at a rate of 54 kg/km/d. 
 
 ![Schematic of the river system in Problem 2](figures/river_diagram.png)
 
@@ -114,7 +114,7 @@ Formulate your model in terms of distance downriver, rather than leaving it in t
 ::: {.markdown .cell}
 #### Problem 2.3
 
-Determine if the system in compliance with a regulatory limit of 2.5 kg/(1000 m$^3$). You can do this analytically or computationally.
+Determine if the system in compliance with a regulatory limit of $2.3\ \text{kg}/(1000 \text{m}^3)$. You can do this analytically or computationally.
 :::
 
 ### Problem 3 (10 points)
@@ -133,7 +133,7 @@ where:
 - $C$ is the heat capacity of the atmosphere and shallow ocean, taken to be $51\ \text{J}/\text{m}^2/^\circ\text{C}$;
 - $\alpha$ is the planetary albedo, or the fraction of incoming radiation reflected by the Earth, which has a present-day value of approximately 0.3;
 - $S$ is the solar constant, or the amount of solar radiation received by the Earth averaged over area, which has a present-day value of $1368\ \text{W}/\text{m}^2$ but during the Neoproteorozoic Era had a value of $1272\ \text{W}/\text{m}^2$ (this is divided by four because the Earth is a sphere but $S$ is the radiation captured by a disc with radius equal to that of the Earth);
-- $A$ and $B$ are coefficients from the linearization of outgoing radiation physics, which are determined by assuming that the pre-industrial temperature of $14^\circ\text{C}$ was stable without anthropogenic greenhouse gas emissions, and have corresponding values $B=1.3\ \text{W}/\text{m}^2/^\circ\text{C}$ and $$A=\frac{(1-\alpha)S}{4} + 14B.$$
+- $A$ and $B$ are coefficients from the linearization of outgoing radiation physics, and have corresponding values $B=-1.3\ \text{W}/\text{m}^2/^\circ\text{C}$ (estimated from a number of lines of evidence about the sensitivity of outgoing radiation to temperature; this is negative due to a sign convention about the direction of incoming vs. outgoing radiation) and $A=221.2\ \text{W}/\text{m}^2$ (estimated by assuming  the pre-industrial temperature of $14^\circ\text{C}$ was stable without anthropogenic greenhouse gas emissions).
 
 We will ignore the greenhouse effect term as we are considering the Earth system well before humans were around. 
 
@@ -151,18 +151,11 @@ Rather than assuming a constant value for the albedo $\alpha$, we will represent
 $$\alpha(T) = 
     \begin{cases} 
         \alpha_i & \quad \text{if } T \leq -10^\circ \text{C} \\
-        \alpha_i + (\alpha_0 - \alpha_i)(T+10 / 20) & \quad \text{if } -10^\circ \text{C} \leq T \leq 10^\circ \text{C} \\
+        \alpha_i + (\alpha_0 - \alpha_i)((T+10) / 20) & \quad \text{if } -10^\circ \text{C} \leq T \leq 10^\circ \text{C} \\
         \alpha_0 & \quad \text{if } T \geq 10^\circ \text{C}.
     \end{cases}$$
 
-Let $\alpha_i = 0.5$ and $\alpha_0 = 0.3$. Plot $\alpha$ versus $T$ for values of $T$ between $-20^\circ\text{C}$ and $20^\circ\text{C}$.
-
-:::
-
-::: {.markdown .cell}
-#### Problem 3.2
-
-Simulate the simple climate model using the Neoprotereozoic value of $S$ with temperature-varying albedo for initial values of $T$ spanning $-60^\circ\text{C} \leq T_0 \leq 30^\circ\text{C}$ over a period of 200 years. Plot the temperature trajectories. How many equilibria are there and what are their stabilities?
+Let $\alpha_i = 0.5$ and $\alpha_0 = 0.3$. Simulate the simple climate model using the Neoprotereozoic value of $S$ with temperature-varying albedo for initial values of $T$ spanning $-60^\circ\text{C} \leq T_0 \leq 30^\circ\text{C}$ over a period of 200 years. Plot the temperature trajectories. How many equilibria are there and what are their stabilities?
 :::
 
 ::: {.markdown .cell}
