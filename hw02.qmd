@@ -177,7 +177,7 @@ Which of the following system quantities are stocks and which are flows?
 
 
 The P concentration of the lake is determined by 
-$$\frac{dP}{dt} = L - sP - R(t),$$
+$$\frac{dP}{dt} = L - sP + R(t),$$
 where $P$ is the P concentration ($\mu\text{g}/\text{L}$), $L$ is external P loading from runoff ($\mu\text{g}/(\text{L} \cdot \text{yr})$), $s=1\ \text{yr}^{-1}$ is the first-order rate of combined P outflow and permanent deposition, and $R(t)$ ($\mu\text{g}/(\text{L}\cdot\text{yr})$ is the sediment release rate at time $t$.
 
 Since the amount of algal biomass is limited by the P concentration, the sediment release rate $R$ can be written as a function of P instead of time. This can be thought of as consisting of three regimes: (1) when the lake is fully oligotrophic and sediment is fully oxidized, retaining all P; (2) a transitional regime where increasing algae reduces sediment oxygenation, increasing P recycling; (3) when the sediment is releasing at its maximum capacity due to maximum sediment P and/or the ability of bacteria to decompose biomass, and additional biomass will not increase the rate of recycling. We will assume the maximum recycling rate is $20\ \mu\text{g}/\text{L}$, and the transitional regime occurs between $25\ \mu\text{g}/\text{L}$ and $35\ \mu\text{g}/\text{L}$.
